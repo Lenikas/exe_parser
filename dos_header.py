@@ -8,7 +8,7 @@ class DosHeaderParser:
     def parse_e_magic(data):
         """Проверяем наличие магической сигнатуры"""
         e_magic = str(data[0:2])
-        return e_magic
+        return data[0:1].hex()
 
     @staticmethod
     def parse_e_lfanew(data):

@@ -8,19 +8,19 @@ class WindowsSpecificFieldsParser:
     def parse_image_base(data, offset):
         base = struct.unpack("<i", data[offset + 52: offset + 56])[0]
         base_hex = data[offset + 52: offset + 56].hex()
-        return base_hex
+        return base
 
     @staticmethod
     def parse_section_alignment(data, offset):
         section = struct.unpack("<i", data[offset + 56: offset + 60])[0]
         section_hex = data[offset + 56: offset + 60].hex()
-        return section_hex
+        return section
 
     @staticmethod
     def parse_file_alignment(data, offset):
         f_alignment = struct.unpack("<i", data[offset + 60: offset + 64])[0]
         f_alignment_hex = data[offset + 60: offset + 64].hex()
-        return f_alignment_hex
+        return f_alignment
 
     @staticmethod
     def parse_major_version_op(data, offset):
@@ -102,7 +102,11 @@ class WindowsSpecificFieldsParser:
 
     @staticmethod
     def parse_dll_characteristic(data, offset):
-        pass
+        characteristic = struct.unpack("<h", data[offset + 94: offset + 96])[0]
+        for b in data[offset + 94: offset + 96]:
+            for i in range(8):
+                bit = (b >> i)
+        return characteristic
 
     @staticmethod
     def parse_size_of_stack_reserve(data, offset):
@@ -157,6 +161,7 @@ class WindowsSpecificFieldsParser:
         print("SizeOfHeaders - {0}".format(WindowsSpecificFieldsParser.parse_size_headers(data, offset)))
         print("CheckSum - {0}".format(WindowsSpecificFieldsParser.parse_check_sum(data, offset)))
         print("Subsystem - {0}".format(WindowsSpecificFieldsParser.parse_subsystem(data, offset)))
+        print("DLLCharacteristic - {0}".format(WindowsSpecificFieldsParser.parse_dll_characteristic(data, offset)))
         print("SizeOfStackReserve - {0}".format(WindowsSpecificFieldsParser.parse_size_of_stack_reserve(data, offset)))
         print("SizeOfStackCommit - {0}".format(WindowsSpecificFieldsParser.parse_size_of_stack_commit(data, offset)))
         print("SizeOfHeapReserve - {0}".format(WindowsSpecificFieldsParser.parse_size_of_heap_reserve(data, offset)))

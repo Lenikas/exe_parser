@@ -2,9 +2,11 @@
 
 Автор - Сагалов Леонид
 
-Запуск:(пока это набросок, входной файл указан в самом коде а не дается на вход программе, входным файлом является test_file.exe)
-- python main.py -dos (поля DOS заголовка)
-- python main.py -сoff (поля COFF заголовка)
-- python main.py -standart_coff (поля STANDART COFF FIELDS заголовка)
-- python main.py -windows_spec(поля WINDOWS SPECIFIC FIELDS заголовка)
-- python main.py -all_headers (поля всех доступных заголовков)
+Запуск:
+- python main.py -dos "path\to\file.exe" (поля DOS заголовка)
+- python main.py -сoff "path\to\file.exe" (поля COFF заголовка)
+- python main.py -standart_coff "path\to\file.exe" (поля STANDART COFF FIELDS заголовка)
+- python main.py -windows_spec "path\to\file.exe" (поля WINDOWS SPECIFIC FIELDS заголовка)
+- python main.py -all_headers "path\to\file.exe" (поля всех доступных заголовков)
+
+Есть тестовый файл в директории с проектом, можно запустить через python main.py -dos test_file.exe

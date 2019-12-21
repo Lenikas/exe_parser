@@ -1,3 +1,5 @@
+import sys
+
 from dos_header import DosHeaderParser
 from coff_header import CoffHeaderParser
 from standart_coff_fields import StandartCoffFieldsParser
@@ -7,11 +9,11 @@ import argparse
 
 def prepare_arguments():
     parser = argparse.ArgumentParser(description="Parser for headers")
-    parser.add_argument('-dos', help=str(DosHeaderParser.__doc__), action='store_true' )
-    parser.add_argument('-coff', help=str(CoffHeaderParser.__doc__), action='store_true')
-    parser.add_argument('-standart_coff', help=str(StandartCoffFieldsParser.__doc__), action='store_true')
-    parser.add_argument('-windows_spec', help=str(WindowsSpecificFieldsParser.__doc__), action='store_true')
-    parser.add_argument('-all_headers', action='store_true')
+    parser.add_argument('-dos', help=str(DosHeaderParser.__doc__), nargs=1)
+    parser.add_argument('-coff', help=str(CoffHeaderParser.__doc__), nargs=1)
+    parser.add_argument('-standart_coff', help=str(StandartCoffFieldsParser.__doc__), nargs=1)
+    parser.add_argument('-windows_spec', help=str(WindowsSpecificFieldsParser.__doc__), nargs=1)
+    parser.add_argument('-all_headers', nargs=1)
     return parser.parse_args()
 
 
@@ -26,10 +28,11 @@ def print_all_headers(data, offset):
 
 
 def main():
-    with open("test_file.exe", "rb") as file:
+    args = prepare_arguments()
+    file = sys.argv[2]
+    with open(file, "rb") as file:
         data = file.read()
         offset = DosHeaderParser.parse_e_lfanew(data)
-    args = prepare_arguments()
     if args.dos:
         DosHeaderParser.create_result(data)
     elif args.coff:
